@@ -4,17 +4,17 @@
 #
 Name     : lksctp-tools
 Version  : 1.0.16
-Release  : 4
-URL      : http://downloads.sourceforge.net/lksctp/lksctp-tools-1.0.16.tar.gz
-Source0  : http://downloads.sourceforge.net/lksctp/lksctp-tools-1.0.16.tar.gz
+Release  : 5
+URL      : https://sourceforge.net/projects/lksctp/files/lksctp-tools/lksctp-tools-1.0.16.tar.gz
+Source0  : https://sourceforge.net/projects/lksctp/files/lksctp-tools/lksctp-tools-1.0.16.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: lksctp-tools-bin
-Requires: lksctp-tools-lib
-Requires: lksctp-tools-license
-Requires: lksctp-tools-data
-Requires: lksctp-tools-man
+Requires: lksctp-tools-bin = %{version}-%{release}
+Requires: lksctp-tools-data = %{version}-%{release}
+Requires: lksctp-tools-lib = %{version}-%{release}
+Requires: lksctp-tools-license = %{version}-%{release}
+Requires: lksctp-tools-man = %{version}-%{release}
 
 %description
 This is the lksctp-tools package for Linux Kernel SCTP Reference
@@ -23,9 +23,9 @@ Implementation.
 %package bin
 Summary: bin components for the lksctp-tools package.
 Group: Binaries
-Requires: lksctp-tools-data
-Requires: lksctp-tools-license
-Requires: lksctp-tools-man
+Requires: lksctp-tools-data = %{version}-%{release}
+Requires: lksctp-tools-license = %{version}-%{release}
+Requires: lksctp-tools-man = %{version}-%{release}
 
 %description bin
 bin components for the lksctp-tools package.
@@ -42,10 +42,10 @@ data components for the lksctp-tools package.
 %package dev
 Summary: dev components for the lksctp-tools package.
 Group: Development
-Requires: lksctp-tools-lib
-Requires: lksctp-tools-bin
-Requires: lksctp-tools-data
-Provides: lksctp-tools-devel
+Requires: lksctp-tools-lib = %{version}-%{release}
+Requires: lksctp-tools-bin = %{version}-%{release}
+Requires: lksctp-tools-data = %{version}-%{release}
+Provides: lksctp-tools-devel = %{version}-%{release}
 
 %description dev
 dev components for the lksctp-tools package.
@@ -54,8 +54,8 @@ dev components for the lksctp-tools package.
 %package lib
 Summary: lib components for the lksctp-tools package.
 Group: Libraries
-Requires: lksctp-tools-data
-Requires: lksctp-tools-license
+Requires: lksctp-tools-data = %{version}-%{release}
+Requires: lksctp-tools-license = %{version}-%{release}
 
 %description lib
 lib components for the lksctp-tools package.
@@ -85,7 +85,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1536493939
+export SOURCE_DATE_EPOCH=1545263468
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -97,11 +97,11 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1536493939
+export SOURCE_DATE_EPOCH=1545263468
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/lksctp-tools
-cp COPYING %{buildroot}/usr/share/doc/lksctp-tools/COPYING
-cp COPYING.lib %{buildroot}/usr/share/doc/lksctp-tools/COPYING.lib
+mkdir -p %{buildroot}/usr/share/package-licenses/lksctp-tools
+cp COPYING %{buildroot}/usr/share/package-licenses/lksctp-tools/COPYING
+cp COPYING.lib %{buildroot}/usr/share/package-licenses/lksctp-tools/COPYING.lib
 %make_install
 
 %files
@@ -151,10 +151,10 @@ cp COPYING.lib %{buildroot}/usr/share/doc/lksctp-tools/COPYING.lib
 /usr/lib64/lksctp-tools/libwithsctp.so.1.0.16
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/lksctp-tools/COPYING
-/usr/share/doc/lksctp-tools/COPYING.lib
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/lksctp-tools/COPYING
+/usr/share/package-licenses/lksctp-tools/COPYING.lib
 
 %files man
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/man/man7/sctp.7
