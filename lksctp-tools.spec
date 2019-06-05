@@ -4,7 +4,7 @@
 #
 Name     : lksctp-tools
 Version  : 1.0.17
-Release  : 6
+Release  : 7
 URL      : https://sourceforge.net/projects/lksctp/files/lksctp-tools/lksctp-tools-1.0.17.tar.gz
 Source0  : https://sourceforge.net/projects/lksctp/files/lksctp-tools/lksctp-tools-1.0.17.tar.gz
 Summary  : User-level SCTP API library
