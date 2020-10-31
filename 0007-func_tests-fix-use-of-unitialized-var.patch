@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+Date: Wed, 26 Sep 2018 13:46:58 -0300
+Subject: [PATCH] func_tests: fix use of unitialized var
+
+code-share1 reported that test_1_to_1_events was failing with:
+./test_1_to_1_events
+test_1_to_1_events.c 1 PASS : COMM_UP notification on client socket - SUCCESS
+test_1_to_1_events.c 2 PASS : COMM_UP notification on server socket - SUCCESS
+test_1_to_1_events.c 3 BROK : Got a datamsg, expecting notification
+DUMP_CORE sctputil.c: 187
+
+Turns out we were not initializing events, and thus relying on trash in
+the stack to enable sctp_authentication_event for us.
+
+Fixes #25
+
+Signed-off-by: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+Acked-by: Neil Horman <nhorman@tuxdriver.com>
+---
+ src/func_tests/test_1_to_1_events.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/func_tests/test_1_to_1_events.c b/src/func_tests/test_1_to_1_events.c
+index 46439bf..f758d6f 100644
+--- a/src/func_tests/test_1_to_1_events.c
++++ b/src/func_tests/test_1_to_1_events.c
+@@ -92,9 +92,13 @@ main(int argc, char *argv[])
+ 	/* Create the client socket.  */
+ 	clt_sk = test_socket(AF_INET, SOCK_STREAM, IPPROTO_SCTP);
+ 
++	memset(&event, 0, sizeof(event));
+ 	event.sctp_data_io_event = 1;
+ 	event.sctp_association_event = 1;
+ 	event.sctp_shutdown_event = 1;
++#ifdef HAVE_SCTP_AUTH_NO_AUTH
++	event.sctp_authentication_event = 1;
++#endif
+ 	len = sizeof(struct sctp_event_subscribe);
+ 	test_setsockopt(svr_sk, SCTP_EVENTS, &event, len);
+ 	test_setsockopt(clt_sk, SCTP_EVENTS, &event, len);

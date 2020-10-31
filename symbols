@@ -11,5 +11,7 @@ libsctp.so.1:sctp_getpaddrs
 libsctp.so.1:sctp_opt_info
 libsctp.so.1:sctp_peeloff
 libsctp.so.1:sctp_recvmsg
+libsctp.so.1:sctp_recvv
 libsctp.so.1:sctp_send
 libsctp.so.1:sctp_sendmsg
+libsctp.so.1:sctp_sendv
