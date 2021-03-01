@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+Date: Wed, 1 Aug 2018 13:12:13 -0300
+Subject: [PATCH] travis: enable make distcheck check
+
+Now that is works again, lets use it.
+
+Signed-off-by: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+---
+ .travis/linux-build.sh | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/.travis/linux-build.sh b/.travis/linux-build.sh
+index 746f172..04e28bb 100755
+--- a/.travis/linux-build.sh
++++ b/.travis/linux-build.sh
+@@ -67,8 +67,7 @@ function build_lksctp()
+ 
+ 	make -j $nproc
+ 
+-	#make -j $nproc distcheck
+-
++	make -j $nproc distcheck
+ }
+ 
+ trap cleanup EXIT
